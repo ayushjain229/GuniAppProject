@@ -1,16 +1,17 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.AspNetCore.Mvc;
 using GuniApp.Web.Controllers;
+using GuniApp.Web.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using System.Collections.Generic;
-using GuniApp.Web.Models;
 
 namespace MSTestProjectForController
 {
     [TestClass]
-    public class UnitTest1
+    public class TestDepartmentsController
     {
+
         [TestMethod]
         public async Task CheckIndexReturnsView()
         {
@@ -26,12 +27,13 @@ namespace MSTestProjectForController
             Assert.IsInstanceOfType(actionResult, typeof(ViewResult));
         }
 
+
         [TestMethod]
         public async Task CheckIndexReturnsData()
         {
             // 1. Arrange
             // create an IDisposable dbContext object.
-            using var dbContext = DbContextMocker.GetApplicationDbContext("TestMethod1");
+            using var dbContext = DbContextMocker.GetApplicationDbContext("TestMethod2");
             var controller = new DepartmentsController(dbContext);
 
             // 2. Act
@@ -70,7 +72,7 @@ namespace MSTestProjectForController
                 Assert.AreEqual<int>(
                     expectedDept.DepartmentId
                     , dept.DepartmentId
-                    , $"Department Name does not match with seeded data for Row # {ndx}");
+                    , $"Department ID does not match with seeded data for Row # {ndx}");
                 Assert.AreEqual<string>(
                     expectedDept.DepartmentName
                     , dept.DepartmentName
